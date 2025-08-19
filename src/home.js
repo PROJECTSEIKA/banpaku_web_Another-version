@@ -136,6 +136,42 @@ function Home({ setIsLoggedIn }) {
     amazing: {
       japanese: '楽しんでね',
       english: 'Enjoy' // Changed from 'Amazing' for clarity
+    },
+     takepicture: {
+      japanese: '写真とろう',
+      english: 'take_picture' // Changed from 'Amazing' for clarity
+    },
+    wait: {
+      japanese: 'ちょっと待ってね',
+      english: 'wait' // Changed from 'Amazing' for clarity
+    },
+    good: {
+      japanese: 'いいね',
+      english: 'good' // Changed from 'Amazing' for clarity
+    },
+    Where_are_you_from: {
+      japanese: 'どこからきたの',
+      english: 'Where_are_you_from' // Changed from 'Amazing' for clarity
+    },
+    Yes: {
+      japanese: 'はい',
+      english: 'Yes' // Changed from 'Amazing' for clarity
+    },
+    No: {
+      japanese: 'いいえ',
+      english: 'No' // Changed from 'Amazing' for clarity
+    },
+    sorry: {
+      japanese: 'ごめんね',
+      english: 'Sorry' // Changed from 'Amazing' for clarity
+    },
+    yourewelcome: {
+      japanese: 'どういたしまして',
+      english: 'yourewelcome' // Changed from 'Amazing' for clarity
+    },
+    name: {
+      japanese: 'なまえ',
+      english: 'name' // Changed from 'Amazing' for clarity
     }
   }), []);
 
@@ -820,6 +856,25 @@ function Home({ setIsLoggedIn }) {
           )}
         </div>
         <div className="header-right">
+            <div className="room-controls">
+            <input
+              type="text"
+              placeholder="ルーム名を入力"
+              value={roomName}
+              onChange={(e) => setRoomName(e.target.value)}
+              className="room-input"
+              disabled={!!me} // ルーム参加中は入力不可にする
+            />
+            {!me ? ( // ルームに参加していない場合
+              <button onClick={handleJoinRoom} className="join-room-btn" disabled={!skywayContext || !roomName}>
+                ルームに参加
+              </button>
+            ) : ( // ルームに参加している場合
+              <button onClick={handleLeaveRoom} className="leave-room-btn">
+                ルームを退出
+              </button>
+            )}
+          </div>
           <button onClick={handleLogout} className="logout-btn">ログアウト</button>
           <button className="voice-btn" disabled={isAiModeOn || isMoveInProgress}>ボイス</button>
         </div>
@@ -841,25 +896,7 @@ function Home({ setIsLoggedIn }) {
           </div>
         </div>
         <div className="main-area">
-          <div className="room-controls">
-            <input
-              type="text"
-              placeholder="ルーム名を入力"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              className="room-input"
-              disabled={!!me} // ルーム参加中は入力不可にする
-            />
-            {!me ? ( // ルームに参加していない場合
-              <button onClick={handleJoinRoom} className="join-room-btn" disabled={!skywayContext || !roomName}>
-                ルームに参加
-              </button>
-            ) : ( // ルームに参加している場合
-              <button onClick={handleLeaveRoom} className="leave-room-btn">
-                ルームを退出
-              </button>
-            )}
-          </div>
+
           <div className="robot-display" ref={robotDisplayRef}>
             {/* リモートのビデオストリームがここに動的に追加されます */}
             {/* ルーム情報はコンソールに表示されるため、ここでは表示しません */}
