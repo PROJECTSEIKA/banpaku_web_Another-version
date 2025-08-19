@@ -1,0 +1,405 @@
+/* style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #root { /* #root も含めて高さを100%に設定 */
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent body scroll */
+}
+
+body {
+    font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E0F6FF 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+/* app-container を追加し、全体のレイアウトを管理 */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* ビューポートの高さいっぱいに */
+    width: 100%; /* ビューポートの幅いっぱいに */
+    overflow: hidden; /* アプリコンテナ自体のスクロールを防止 */
+}
+
+.header {
+    background: linear-gradient(135deg, #8B7EC8 0%, #6A5ACD 100%);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* ヘッダーは縮小しない */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.motion-btn {
+    background: #5A67D8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.motion-btn:hover {
+    background: #4C51BF;
+    transform: translateY(-2px);
+}
+
+.robot-status {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background: #E53E3E;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #C53030;
+}
+
+.voice-btn {
+    background: #5A67D8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.voice-btn:hover {
+    background: #4C51BF;
+    transform: translateY(-2px);
+}
+
+.main-container {
+    flex: 1; /* 残りの垂直スペースを埋める */
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    min-height: 0; /* Flexアイテムの最小高さを設定 */
+    padding: 0; /* paddingを削除して画面いっぱいに広げる */
+    gap: 0; /* gapを削除して画面いっぱいに広げる */
+}
+
+.side-panel {
+    width: 240px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    height: 100%; /* 高さを100%にして親要素に合わせる */
+}
+
+.side-panel-content {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    flex: 1; /* Allow content to take available space and scroll */
+}
+
+.side-panel-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.side-panel-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.side-panel-content::-webkit-scrollbar-thumb {
+    background: rgba(106, 90, 205, 0.5);
+    border-radius: 3px;
+}
+
+.side-panel-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(106, 90, 205, 0.7);
+}
+
+.side-btn {
+    background: #E2E8F0;
+    border: none;
+    padding: 15px 10px;
+    border-radius: 50px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    /* transition: all 0.3s ease; */
+    color: #4A5568;
+    min-height: 50px;
+    flex-shrink: 0;
+}
+
+.side-btn:hover {
+    background: #CBD5E0;
+    transform: scale(1.05);
+}
+
+.main-area {
+    flex: 1; /* 残りの水平スペースを埋める */
+    display: flex;
+    flex-direction: column; /* これを追加: コンテンツを縦に並べる */
+    position: relative;
+    overflow: hidden;
+    /* background: black; */ /* 背景色を削除 */
+    /* border-radius: 15px; */ /* 角丸を削除 */
+    /* margin: 5px; */ /* マージンを削除 */
+    /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); */ /* シャドウを削除 */
+    /* justify-content: center; */ /* 中央寄せを削除 */
+    /* align-items: center; */ /* 中央寄せを削除 */
+}
+
+.room-controls {
+    position: absolute; /* 絶対配置にしてビデオの上に重ねる */
+    top: 10px; /* 上からの位置 */
+    left: 50%; /* 中央寄せ */
+    transform: translateX(-50%); /* 中央寄せ */
+    z-index: 10; /* ビデオより手前に表示 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(68, 68, 68, 0.7); /* 半透明の背景 */
+    border-radius: 8px;
+}
+
+.robot-display {
+    position: relative;
+    width: 100%; /* 親要素の幅いっぱいに */
+    height: 100%; /* 親要素の高さいっぱいに */
+    flex: 1; /* Allow robot-display to fill remaining vertical space */
+    display: flex; /* ビデオを中央に配置するためにflexを使用 */
+    justify-content: center; /* 水平方向中央寄せ */
+    align-items: center; /* 垂直方向中央寄せ */
+    color: rgb(0, 0, 0);
+    overflow: hidden; /* はみ出しを隠す */
+}
+
+.robot-display video.remote-video {
+    width: 100%; /* 親要素の幅いっぱいに */
+    height: 100%; /* 親要素の高さいっぱいに */
+    object-fit: cover; /* アスペクト比を維持しつつ、要素を完全に覆うように拡大 */
+    /* object-fit: fill; を使うと映像が歪みますが、強制的に引き伸ばされます */
+}
+
+.status-display {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #28a745;
+    animation: pulse 2s infinite;
+}
+
+.side-panel.right {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-right: none;
+}
+
+.bottom-controls {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0; /* bottom-controlsは縮小しない */
+}
+
+.control-btn {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-btn {
+    background: linear-gradient(135deg, #48BB78, #38A169);
+    color: white;
+}
+
+.ai-btn:hover {
+    background: linear-gradient(135deg, #38A169, #2F855A);
+    transform: translateY(-2px);
+}
+
+.mic-btn {
+    background: linear-gradient(135deg, #48BB78, #38A169);
+    color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.mic-btn:hover {
+    background: linear-gradient(135deg, #38A169, #2F855A);
+    transform: scale(1.1);
+}
+
+.mute-btn {
+    background: linear-gradient(135deg, #E53E3E, #C53030);
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.mute-btn:hover {
+    background: linear-gradient(135deg, #C53030, #9C2A2A);
+    transform: scale(1.1);
+}
+
+.manual-btn {
+    background: linear-gradient(135deg, #E53E3E, #C53030);
+    color: white;
+}
+
+.manual-btn:hover {
+    background: linear-gradient(135deg, #C53030, #9C2A2A);
+    transform: translateY(-2px);
+}
+
+.auto-btn {
+    background: linear-gradient(135deg, #3182CE, #2B6CB0);
+    color: white;
+}
+
+.auto-btn:hover {
+    background: linear-gradient(135deg, #2B6CB0, #2C5282);
+    transform: translateY(-2px);
+}
+
+.greeting-btn {
+    background: linear-gradient(135deg, #ED8936, #DD6B20);
+    color: white;
+}
+
+.greeting-btn:hover {
+    background: linear-gradient(135deg, #DD6B20, #C05621);
+    transform: translateY(-2px);
+}
+
+.english-btn {
+    background: linear-gradient(135deg, #805AD5, #6B46C1);
+    color: white;
+}
+
+.english-btn:hover {
+    background: linear-gradient(135deg, #6B46C1, #553C9A);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .side-panel {
+        width: 80px;
+    }
+
+    .side-panel-content {
+        padding: 10px 5px;
+    }
+
+    .side-btn {
+        padding: 10px 5px;
+        font-size: 12px;
+        min-height: 40px;
+    }
+}
+
+.ai-btn {
+    background-color: #9333ea; /* bg-purple-600 */
+    color: white;
+}
+.ai-btn:hover {
+    background-color: #7e22ce; /* hover:bg-purple-700 */
+}
+.ai-btn.ai-mode-on {
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.5); /* ring-4 ring-purple-400 */
+}
+
+.ai-suggestions {
+    position: absolute;
+    bottom: 1rem; /* bottom-4 */
+    width: 91.666667%; /* w-11/12 */
+    background-color: rgba(0, 0, 0, 0.5); /* bg-black bg-opacity-50 */
+    padding: 1rem; /* p-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem; /* space-x-4 */
+    z-index: 20; /* z-20 */
+}
+
+.ai-suggestion-btn {
+    flex: 1; /* flex-1 */
+    background-color: #3b82f6; /* bg-blue-500 */
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1rem; /* py-3 px-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+    transition: all 0.3s ease-in-out; /* transition duration-300 ease-in-out */
+}
+.ai-suggestion-btn:hover {
+    background-color: #2563eb; /* hover:bg-blue-600 */
+    transform: scale(1.05); /* transform hover:scale-105 */
+}
