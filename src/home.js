@@ -145,7 +145,7 @@ function Home({ setIsLoggedIn }) {
       japanese: 'ちょっと待ってね',
       english: 'wait' // Changed from 'Amazing' for clarity
     },
-    good: {
+    good: {// eslint-disable-line
       japanese: 'いいね',
       english: 'good' // Changed from 'Amazing' for clarity
     },
