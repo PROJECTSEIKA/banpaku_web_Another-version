@@ -55,18 +55,14 @@ body {
     border: none;
     padding: 0.75rem 1.5rem; /* remを使用 */
     border-radius: 9999px; /* Tailwindのrounded-full */
-    font-size: 0.875rem; /* remを使用 */
+    font-size: 1.2rem; /* remを使用 */
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px #008080; /* 立体感を出すために影を追加 */
 }
 
-.motion-btn:hover, .voice-btn:hover {
-    background: #00BFFF; /* ホバー時の色を明るく変更 */
-    transform: translateY(-2px);
-    box-shadow: 0 6px #008080;
-}
+
 
 .robot-status {
     font-size: 1rem; /* remを使用 */
@@ -85,6 +81,8 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px #CD5C5C;
+    margin-right: 15px;
+
 }
 
 .logout-btn:hover {
@@ -382,7 +380,7 @@ body {
 /* AI提案の表示 */
 .ai-suggestions {
     position: absolute;
-    bottom: 4rem;
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -416,4 +414,9 @@ body {
 .ai-suggestion-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+.translated-text-content {
+    bottom: 10rem;
+    left: 50%;
+    font-size: 20px;
 }

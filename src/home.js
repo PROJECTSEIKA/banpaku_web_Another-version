@@ -846,17 +846,36 @@ function Home({ setIsLoggedIn }) {
       <div className="header">
       
         <div className="header-left">
-          <button className="motion-btn" disabled={isAiModeOn || isMoveInProgress}>モーション</button>
-          {/* 翻訳されたテキストを表示する要素を追加 */}
-          {translatedText && (
-            <div className="translated-text">
-              <span className="translated-text-label">翻訳: </span>
-              <span className="translated-text-content">{translatedText}</span>
-            </div>
-          )}
+          <span className="motion-btn" disabled={isAiModeOn || isMoveInProgress}>モーション</span>
+          <div className="bottom-controls">
+            <button
+              className={`control-btn ai-btn`}
+              onClick={() => handleAiModeToggle()}
+              disabled={!me} // ルームに参加していない場合は無効
+            >
+              {isAiModeOn ? 'リセット' : 'リセット'}
+            </button>
+            {/* 🌟追加: 音声認識ボタン */}
+            <button
+              className={`control-btn speech-recognition-btn ${isListening ? 'listening' : ''}`}
+              onClick={handleToggleListening}
+              disabled={!me || !localDataStreamRef.current || isAiModeOn} // ルーム未参加、データストリーム未準備、AIモード中は無効
+            >
+              {isListening ? '🔴 音声認識を停止' : '🎤 音声認識を開始'}
+            </button>
+            <button
+              className={`control-btn mic-btn ${isMuted ? 'muted' : ''}`} // ミュート状態に応じてクラスを追加
+              onClick={handleMute}
+              id="micBtn"
+              disabled={!me || !audioPublicationRef.current || isAiModeOn} // ルームに参加していない、またはオーディオが公開されていない、AIモード中は無効
+            >
+              {isMuted ? '🔇 マイクミュート' : '🎤 マイクON'} {/* ミュート状態に応じてアイコンとテキストを変更 */}
+            </button>
+          </div>
+
         </div>
         <div className="header-right">
-            <div className="room-controls">
+          <div className="room-controls">
             <input
               type="text"
               placeholder="ルーム名を入力"
@@ -876,7 +895,7 @@ function Home({ setIsLoggedIn }) {
             )}
           </div>
           <button onClick={handleLogout} className="logout-btn">ログアウト</button>
-          <button className="voice-btn" disabled={isAiModeOn || isMoveInProgress}>ボイス</button>
+          <span className="voice-btn" >ボイス</span>
         </div>
       </div>
       <div className="main-container">
@@ -924,6 +943,7 @@ function Home({ setIsLoggedIn }) {
                 )}
               </div>
             )}
+
           </div>
         </div>
         <div className="side-panel right">
@@ -942,31 +962,14 @@ function Home({ setIsLoggedIn }) {
           </div>
         </div>
       </div>
-      <div className="bottom-controls">
-        <button
-          className={`control-btn ai-btn`}
-          onClick={() => handleAiModeToggle()}
-          disabled={!me} // ルームに参加していない場合は無効
-        >
-          {isAiModeOn ? 'リセット   ' : 'AIモードON'}
-        </button>
-        {/* 🌟追加: 音声認識ボタン */}
-        <button
-          className={`control-btn speech-recognition-btn ${isListening ? 'listening' : ''}`}
-          onClick={handleToggleListening}
-          disabled={!me || !localDataStreamRef.current || isAiModeOn} // ルーム未参加、データストリーム未準備、AIモード中は無効
-        >
-          {isListening ? '🔴 音声認識を停止' : '🎤 音声認識を開始'}
-        </button>
-        <button
-          className={`control-btn mic-btn ${isMuted ? 'muted' : ''}`} // ミュート状態に応じてクラスを追加
-          onClick={handleMute}
-          id="micBtn"
-          disabled={!me || !audioPublicationRef.current || isAiModeOn} // ルームに参加していない、またはオーディオが公開されていない、AIモード中は無効
-        >
-          {isMuted ? '🔇 マイクミュート' : '🎤 マイクON'} {/* ミュート状態に応じてアイコンとテキストを変更 */}
-        </button>
-      </div>
+
+                    {/* 翻訳されたテキストを表示する要素を追加 */}
+              {translatedText && (
+                <div className="translated-text">
+                  <span className="translated-text-label">翻訳: </span>
+                  <span className="translated-text-content">{translatedText}</span>
+                </div>
+              )}
     </div>
   );
 }
